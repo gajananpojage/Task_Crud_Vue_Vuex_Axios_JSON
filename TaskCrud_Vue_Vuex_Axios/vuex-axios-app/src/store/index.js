@@ -12,8 +12,8 @@ export default new Vuex.Store(
       addTask (state, task) {
         state.tasks.push(task)
       },
-      deleteTask (state, task) {
-        state.tasks = state.tasks.filter(obj => obj.id !== task)
+      deleteTask (state, taskId) {
+        state.tasks = state.tasks.filter(task => task.id !== taskId)
       }
     },
     getters: {

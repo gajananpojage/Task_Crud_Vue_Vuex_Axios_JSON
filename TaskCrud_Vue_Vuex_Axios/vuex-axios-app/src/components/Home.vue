@@ -9,8 +9,9 @@
             </div>
             <div class="error" v-if="error">{{error}}</div>
             <div class="task-opts">
+              <div  v-if="taskId">Task added Successfully</div>
                 <div class="task-links" v-if="taskId">
-                    <router-link v-bind:to="{ name: 'Task', params: { id: taskId} }">More Details</router-link>
+                    <router-link v-bind:to="{ name: 'Task', params: { id: taskId} }">Task Details</router-link>
                 </div>
             </div>
         </div>
@@ -43,7 +44,8 @@ export default {
         this.taskId = ''
         return false
       }
-      const response = await TaskService.addTask({ name: this.task, completed: false })
+      let description = 'created on ' + new Date().toJSON().slice(0, 10).replace(/-/g, '/')
+      const response = await TaskService.addTask({ name: this.task, description: description, completed: false })
 
       let responses = response.data
 
@@ -58,6 +60,7 @@ export default {
       if (!tasks.filter(task => task.name === this.task).length > 0) {
         this.$store.commit('addTask', responses)
       }
+      this.task = ''
     }
   }
 }

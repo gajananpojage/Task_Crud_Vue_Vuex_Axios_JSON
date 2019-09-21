@@ -15,8 +15,8 @@
           </li>
         </ul>
       </div>
-      <div class="error" v-if="error">{{error}}</div>
-    </div>
+         </div>
+         <div class="error" v-if="isError">{{error}}</div>
   </div>
 </template>
 
@@ -28,19 +28,28 @@ export default {
   computed: {
     tasks () {
       return this.$store.state.tasks.slice().reverse()
+    },
+    error () {
+      return 'Your task could not be found and was not deleted.'
+    }
+  },
+  data () {
+    return {
+      isError: false
     }
   },
   methods: {
     async deleteTask (task) {
       const response = await TaskService.deleteTask(task.id)
 
-      let responses = response.data
-
-      if (!responses) {
-        this.error = 'Your task could not be found and was not deleted.'
-        return false
+      if (!response.data) {
+        this.isError = true
+      } else {
+        this.$store.commit('deleteTask', task.id)
       }
-      this.$store.commit('deleteTask', responses.id)
+    },
+    updateTask (task) {
+      this.$router.push({ name: 'Task', params: { id: task.id, isEdit: true } })
     }
   }
 }
