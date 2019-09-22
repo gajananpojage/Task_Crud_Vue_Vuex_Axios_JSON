@@ -21,7 +21,7 @@ const devWebpackConfig = merge(baseWebpackConfig, {
   devtool: config.dev.devtool,
 
   // these devServer options should be customized in /config/index.js
-  devServer: {
+  devServer: {  
     clientLogLevel: 'warning',
     historyApiFallback: {
       rewrites: [

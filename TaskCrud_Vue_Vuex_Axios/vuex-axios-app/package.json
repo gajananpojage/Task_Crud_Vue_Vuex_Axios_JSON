@@ -10,7 +10,9 @@
     "unit": "cross-env BABEL_ENV=test karma start test/unit/karma.conf.js --single-run",
     "test": "npm run unit",
     "lint": "eslint --ext .js,.vue src test/unit",
-    "build": "node build/build.js"
+    "build": "node build/build.js",
+    "mock:server": "json-server  --watch mockData/db.json",
+    "server-client": "concurrently --kill-others \"npm run mock:server\" \"npm run dev\""
   },
   "dependencies": {
     "axios": "^0.19.0",
@@ -32,6 +34,7 @@
     "babel-preset-stage-2": "^6.22.0",
     "chai": "^4.1.2",
     "chalk": "^2.0.1",
+    "concurrently": "^4.1.2",
     "copy-webpack-plugin": "^4.0.1",
     "cross-env": "^5.0.1",
     "css-loader": "^0.28.0",
@@ -49,6 +52,7 @@
     "friendly-errors-webpack-plugin": "^1.6.1",
     "html-webpack-plugin": "^2.30.1",
     "inject-loader": "^3.0.0",
+    "json-server": "^0.15.1",
     "karma": "^1.4.1",
     "karma-coverage": "^1.1.1",
     "karma-mocha": "^1.3.0",
